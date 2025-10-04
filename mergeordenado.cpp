@@ -2,16 +2,14 @@
 using namespace std;
 
 void ordenar(int* p, int* q) {
-    int* fin = p + 10; // apunta al final del array
-
-    // p recorre desde el inicio hasta el penúltimo elemento
-    for (; p < fin - 1; p++) {
-        // q recorre desde el siguiente elemento hasta el final
-        for (q = p + 1; q < fin; q++) {
-            if (*p > *q) {
+    // p recorre desde el inicio al penúltimo elemento
+    for (; p < (q + 5) - 1; p++) {   // q + 5 == arr + 10
+        // r recorre desde el siguiente elemento de p hasta el final
+        for (int* r = p + 1; r < (q + 5); r++) {
+            if (*p > *r) {
                 int aux = *p;
-                *p = *q;
-                *q = aux;
+                *p = *r;
+                *r = aux;
             }
         }
     }
@@ -21,7 +19,7 @@ int main() {
     int arr[10] = {5, 9, 2, 7, 4, 1, 6, 3, 10, 8};
 
     int* p = arr;        
-    int* q = arr + 5;    // inicialmente en la mitad, pero la función lo reutiliza
+    int* q = arr + 5;    
 
     ordenar(p, q);
 
