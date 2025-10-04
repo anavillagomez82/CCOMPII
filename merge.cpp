@@ -2,27 +2,36 @@
 using namespace std;
 
 void merge(int* p, int* q) {
-    for (int* i = p; i < q; i++) {
-        for (int* j = q; j < p + 10; j++) {
-            if (*i > *j) {
-                int aux = *i;
-                *i = *j;
-                *j = aux;
+    int* fin = p + 10;  // apunta al final del array (después del último elemento)
+
+    for (; p < q; p++) {          // p recorre la primera mitad
+        for (int* k = q; k < fin; k++) {  // k recorre la segunda mitad
+            if (*p > *k) {
+                int aux = *p;
+                *p = *k;
+                *k = aux;
             }
         }
     }
 }
 
 int main() {
-    int arr[10] = {8, 12, 20, 25, 30, 1, 5, 10, 15, 18};
-    int* p = arr;       // inicio
-    int* q = arr + 5;   // mitad
+    int arr[10] = {5, 9, 2, 7, 4, 1, 6, 3, 10, 8};
+
+    int* p = arr;        
+    int* q = arr + 5;    
 
     merge(p, q);
 
     cout << "Array ordenado: ";
-    for (int i = 0; i < 10; i++) {
-        cout << arr[i] << " ";
+    for (; p < arr + 10; p++) {
+        cout << *p << " ";
+    }
+    cout << endl;
+
+    return 0;
+}
+
     }
     cout << endl;
 
