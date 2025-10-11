@@ -1,40 +1,40 @@
 #include <iostream>
-#include <cstring>
-#include <cctype>  // para tolower
 using namespace std;
 
-bool Palindromo(char* c) {
-    char* p = c;
-    char* f = c + strlen(c) - 1;
+bool palindromo(char* c) {
+    char* p = c;   // Apunta al inicio
+    char* f = c;   // También apunta al inicio, pero lo moveremos hasta el final
+    bool pal = true;
 
-    while (p < f) {
-        if (*p == ' ') { p++; continue; }
-        if (*f == ' ') { f--; continue; }
-
-        if (tolower(*p) != tolower(*f)) {
-            return false;
-        }
-
-        p++;
-        f--;
+    // Calcula la longitud de la cadena
+    while (*f != '\0') {  // Mientras no llegue al final de la cadena
+        f++;              // Avanza el puntero
     }
-    return true;
+    f--;  // Retrocede una posición para apuntar al último carácter válido
+
+    // Compara los extremos
+    for (; p < f; p++, f--) {
+        if (*p != *f) {
+            pal = false;
+            break;
+        }
+    }
+
+    return pal;
 }
 
 int main() {
     char A[3][50] = {
-        "Hola Amigos",
+        "Hola mundo",
         "anita lava la tina",
-        "amo la paloma"
+        "oso"
     };
 
     for (char* p = *A; p < *A + 3 * 50; p += 50) {
-        cout << "Frase: " << p << " -> ";
-        if (Palindromo(p))
-            cout << "Es palindromo";
+        if (palindromo(p))
+            cout << p << "  ->  SI es palindromo" << endl;
         else
-            cout << "No es palindromo";
-        cout << endl;
+            cout << p << "  ->  NO es palindromo" << endl;
     }
 
     return 0;
