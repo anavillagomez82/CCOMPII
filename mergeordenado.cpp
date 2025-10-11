@@ -1,34 +1,56 @@
 #include <iostream>
 using namespace std;
 
-void ordenar(int* p, int* q) {
-    // p recorre desde el inicio al penúltimo elemento
-    for (; p < (q + 5) - 1; p++) {   // q + 5 == arr + 10
-        // r recorre desde el siguiente elemento de p hasta el final
-        for (int* r = p + 1; r < (q + 5); r++) {
-            if (*p > *r) {
-                int aux = *p;
-                *p = *r;
-                *r = aux;
-            }
+void merge(int* p, int* q) {
+    int temp[10];        // array temporal
+    int* t = temp;       // puntero que llenará el array temporal
+    int* fin = q + 5;    
+
+    int* mitad = q;     
+
+    // Comparar p y q
+    while (p < mitad && q < fin) {
+        if (*p <= *q) {
+            *t = *p;
+            p++;
+        } else {
+            *t = *q;
+            q++;
         }
+        t++;
+    }
+
+    // Si aún quedan elementos en la primera mitad
+    while (p < mitad) {
+        *t = *p;
+        p++;
+        t++;
+    }
+
+    // Si aún quedan elementos en la segunda mitad
+    while (q < fin) {
+        *t = *q;
+        q++;
+        t++;
+    }
+
+    // Copiar el array temporal al original
+    for (int i = 0; i < 10; i++) {
+        *(mitad - 5 + i) = temp[i];
     }
 }
 
 int main() {
-    int arr[10] = {5, 9, 2, 7, 4, 1, 6, 3, 10, 8};
+    int arr[10] = {2, 4, 6, 8, 10, 1, 3, 5, 7, 9};
 
-    int* p = arr;        
-    int* q = arr + 5;    
+    int* p = arr;       
+    int* q = arr + 5;   
 
-    ordenar(p, q);
+    merge(p, q);
 
-    // reiniciamos p para imprimir desde el inicio
-    p = arr;
-
-    cout << "Array ordenado: ";
-    for (; p < arr + 10; p++) {
-        cout << *p << " ";
+    cout << "Array combinado y ordenado: ";
+    for (int* it = arr; it < arr + 10; it++) {
+        cout << *it << " ";
     }
     cout << endl;
 
