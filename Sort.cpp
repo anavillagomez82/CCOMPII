@@ -1,5 +1,5 @@
 #include <iostream>
-#include <ctime>
+#include <chrono>
 using namespace std;
 
 //////////////////////////////
@@ -11,7 +11,7 @@ void mergeNormal(int arr[], int inicio, int medio, int fin) {
     int n2 = fin - medio;
 
     int L[n1], R[n2];
-
+    
     for (int i = 0; i < n1; i++)
         L[i] = arr[inicio + i];
 
@@ -156,77 +156,29 @@ void mergeSortFunc(int arr[], int inicio, int fin,
 //////////////////////////////
 
 int main() {
+    const int n = 500000;
 
-    const int n = 10000;
-
-    int arr1[n], arr2[n], arr3[n];
+    // Es preferible usar 'new' o std::vector para evitar Stack Overflow con n tan grandes
+    int* arr1 = new int[n];
+    int* arr2 = new int[n];
+    int* arr3 = new int[n];
 
     srand(time(0));
 
-    // llenar arreglos con numeros aleatorios
     for (int i = 0; i < n; i++) {
         int num = rand() % 100000;
-
         arr1[i] = num;
         arr2[i] = num;
         arr3[i] = num;
     }
 
-    clock_t inicio, fin;
+    // Declaramos las variables de tiempo una sola vez
+    std::chrono::high_resolution_clock::time_point inicio, fin;
+    std::chrono::duration<double, std::milli> tiempo;
 
-    //////////////////////////////
     // NORMAL
-    //////////////////////////////
-
-    inicio = clock();
-
+    inicio = std::chrono::high_resolution_clock::now();
     mergeSortNormal(arr1, 0, n - 1);
-
-    fin = clock();
-
-    double tiempoNormal =
-        double(fin - inicio) / CLOCKS_PER_SEC;
-
-    //////////////////////////////
-    // POLIMORFISMO
-    //////////////////////////////
-
-    Ascendente asc;
-
-    inicio = clock();
-
-    mergeSortPoli(arr2, 0, n - 1, &asc);
-
-    fin = clock();
-
-    double tiempoPoli =
-        double(fin - inicio) / CLOCKS_PER_SEC;
-
-    //////////////////////////////
-    // PUNTEROS A FUNCIONES
-    //////////////////////////////
-
-    inicio = clock();
-
-    mergeSortFunc(arr3, 0, n - 1, ascendente);
-
-    fin = clock();
-
-    double tiempoFunc =
-        double(fin - inicio) / CLOCKS_PER_SEC;
-
-    //////////////////////////////
-    // RESULTADOS
-    //////////////////////////////
-
-    cout << "Tiempo Normal: "
-         << tiempoNormal << " segundos\n";
-
-    cout << "Tiempo Polimorfismo: "
-         << tiempoPoli << " segundos\n";
-
-    cout << "Tiempo Punteros a Funciones: "
-         << tiempoFunc << " segundos\n";
-
-    return 0;
-}
+    fin = std::chrono::high_resolution_clock::now();
+    tiempo = fin - inicio;
+    std::cout << "Merge Normal tardó: " << tiempo.count() << " ms." << std::endl;
