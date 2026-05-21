@@ -1,3 +1,4 @@
+//quiero que a este codigo le agregues la forma de mergesort con templates y quiero ver el tiempo que demoro cada forma al final 
 #include <iostream>
 #include <chrono>
 using namespace std;
@@ -182,3 +183,5 @@ int main() {
     fin = std::chrono::high_resolution_clock::now();
     tiempo = fin - inicio;
     std::cout << "Merge Normal tardó: " << tiempo.count() << " ms." << std::endl;
+    
+};
