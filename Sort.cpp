@@ -172,6 +172,7 @@ void mergeSortFunc(int arr[], int inicio, int fin,
 //////////////////////////////
 
 // Estructura functor para pasar como argumento de plantilla
+//Esta version de templates quiero que la modifiques no uses typename sino class, y tiene que haber 2 struct un cless que tendra solo un metodo bool cmp y que comparara dos numeros en este caso si es menor uno que otro y el toro struct es un cgreater que sera igual solo que comparar si es mayor,cada uno con su template antes 
 template <typename T>
 struct ComparadorTemplate {
     bool operator()(const T& a, const T& b) const {
